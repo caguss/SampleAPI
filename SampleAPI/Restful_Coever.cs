@@ -16,6 +16,7 @@ namespace SampleAPI
     {
         private string strAPI = "/CompanyUseage"; // API 설정
         private DataSet ds = new DataSet();
+        private MessageForm err;
         DateTime last_record;
         public Restful_Coever()
         {
@@ -24,9 +25,9 @@ namespace SampleAPI
 
         private async void button1_ClickAsync(object sender, EventArgs e)
         {
-            button1.Enabled = false;
-            textBox1.Enabled = false;
-            textBox2.Enabled = false;
+            btnStart.Enabled = false;
+            txtCompCode.Enabled = false;
+            txtProjNum.Enabled = false;
 
             last_record = DateTime.Now;
             await SendMessage();
@@ -49,7 +50,6 @@ namespace SampleAPI
             }
             catch (Exception)
             {
-                MessageBox.Show("db 오류");
             }
 
             try
@@ -66,8 +66,8 @@ namespace SampleAPI
 
                 //A10 수주
 
-                string data = "[{ \"회사코드\":" + "\"" + textBox1.Text + "\"" + "," + // 코에버 공통 1000? 1051?
-                                 "\"프로젝트번호\":" + Convert.ToInt32(textBox2.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
+                string data = "[{ \"회사코드\":" + "\"" + txtCompCode.Text + "\"" + "," + // 코에버 공통 1000? 1051?
+                                 "\"프로젝트번호\":" + Convert.ToInt32(txtProjNum.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
                                  "\"날짜\": " + "\"" + TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Korea Standard Time").ToString("yyyy-MM-dd") + "\"" + "," +
                                  "\"구분코드\":" + "\"" + "A10" + "\"" + "," +  // 공통 코드 문서 참고 ( A10 : 수주 등등)
                                  "\"로우갯수\":" + Convert.ToInt32(ds.Tables[0].Rows[0]["rowcount"].ToString()) + "," +
@@ -82,8 +82,8 @@ namespace SampleAPI
 
                 //A20 발주
 
-                data = "[{ \"회사코드\":" + "\"" + textBox1.Text + "\"" + "," + // 코에버 공통 1000? 1051?
-                                "\"프로젝트번호\":" + Convert.ToInt32(textBox2.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
+                data = "[{ \"회사코드\":" + "\"" + txtCompCode.Text + "\"" + "," + // 코에버 공통 1000? 1051?
+                                "\"프로젝트번호\":" + Convert.ToInt32(txtProjNum.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
                                 "\"날짜\": " + "\"" + TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Korea Standard Time").ToString("yyyy-MM-dd") + "\"" + "," +
                                 "\"구분코드\":" + "\"" + "A20" + "\"" + "," +  // 공통 코드 문서 참고 ( A10 : 수주 등등)
                                 "\"로우갯수\":" + Convert.ToInt32(ds.Tables[1].Rows[0]["rowcount"].ToString()) + "," +
@@ -98,8 +98,8 @@ namespace SampleAPI
 
                 //A30 작지
 
-                data = "[{ \"회사코드\":" + "\"" + textBox1.Text + "\"" + "," + // 코에버 공통 1000? 1051?
-                                "\"프로젝트번호\":" + Convert.ToInt32(textBox2.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
+                data = "[{ \"회사코드\":" + "\"" + txtCompCode.Text + "\"" + "," + // 코에버 공통 1000? 1051?
+                                "\"프로젝트번호\":" + Convert.ToInt32(txtProjNum.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
                                 "\"날짜\": " + "\"" + TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Korea Standard Time").ToString("yyyy-MM-dd") + "\"" + "," +
                                 "\"구분코드\":" + "\"" + "A30" + "\"" + "," +  // 공통 코드 문서 참고 ( A10 : 수주 등등)
                                 "\"로우갯수\":" + Convert.ToInt32(ds.Tables[2].Rows[0]["rowcount"].ToString()) + "," +
@@ -114,8 +114,8 @@ namespace SampleAPI
 
                 //A40 재고
 
-                data = "[{ \"회사코드\":" + "\"" + textBox1.Text + "\"" + "," + // 코에버 공통 1000? 1051?
-                                "\"프로젝트번호\":" + Convert.ToInt32(textBox2.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
+                data = "[{ \"회사코드\":" + "\"" + txtCompCode.Text + "\"" + "," + // 코에버 공통 1000? 1051?
+                                "\"프로젝트번호\":" + Convert.ToInt32(txtProjNum.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
                                 "\"날짜\": " + "\"" + TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Korea Standard Time").ToString("yyyy-MM-dd") + "\"" + "," +
                                 "\"구분코드\":" + "\"" + "A40" + "\"" + "," +  // 공통 코드 문서 참고 ( A10 : 수주 등등)
                                 "\"로우갯수\":" + Convert.ToInt32(ds.Tables[3].Rows[0]["rowcount"].ToString()) + "," +
@@ -130,8 +130,8 @@ namespace SampleAPI
 
                 //A50 재고
 
-                data = "[{ \"회사코드\":" + "\"" + textBox1.Text + "\"" + "," + // 코에버 공통 1000? 1051?
-                                "\"프로젝트번호\":" + Convert.ToInt32(textBox2.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
+                data = "[{ \"회사코드\":" + "\"" + txtCompCode.Text + "\"" + "," + // 코에버 공통 1000? 1051?
+                                "\"프로젝트번호\":" + Convert.ToInt32(txtProjNum.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
                                 "\"날짜\": " + "\"" + TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Korea Standard Time").ToString("yyyy-MM-dd") + "\"" + "," +
                                 "\"구분코드\":" + "\"" + "A50" + "\"" + "," +  // 공통 코드 문서 참고 ( A10 : 수주 등등)
                                 "\"로우갯수\":" + Convert.ToInt32(ds.Tables[3].Rows[0]["rowcount"].ToString()) + "," +
@@ -146,8 +146,8 @@ namespace SampleAPI
 
                 //A60 출하
 
-                data = "[{ \"회사코드\":" + "\"" + textBox1.Text + "\"" + "," + // 코에버 공통 1000? 1051?
-                                "\"프로젝트번호\":" + Convert.ToInt32(textBox2.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
+                data = "[{ \"회사코드\":" + "\"" + txtCompCode.Text + "\"" + "," + // 코에버 공통 1000? 1051?
+                                "\"프로젝트번호\":" + Convert.ToInt32(txtProjNum.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
                                 "\"날짜\": " + "\"" + TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Korea Standard Time").ToString("yyyy-MM-dd") + "\"" + "," +
                                 "\"구분코드\":" + "\"" + "A60" + "\"" + "," +  // 공통 코드 문서 참고 ( A10 : 수주 등등)
                                 "\"로우갯수\":" + Convert.ToInt32(ds.Tables[5].Rows[0]["rowcount"].ToString()) + "," +
@@ -162,8 +162,8 @@ namespace SampleAPI
 
                 //A25 생산계획
 
-                data = "[{ \"회사코드\":" + "\"" + textBox1.Text + "\"" + "," + // 코에버 공통 1000? 1051?
-                                "\"프로젝트번호\":" + Convert.ToInt32(textBox2.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
+                data = "[{ \"회사코드\":" + "\"" + txtCompCode.Text + "\"" + "," + // 코에버 공통 1000? 1051?
+                                "\"프로젝트번호\":" + Convert.ToInt32(txtProjNum.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
                                 "\"날짜\": " + "\"" + TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Korea Standard Time").ToString("yyyy-MM-dd") + "\"" + "," +
                                 "\"구분코드\":" + "\"" + "A25" + "\"" + "," +  // 공통 코드 문서 참고 ( A10 : 수주 등등)
                                 "\"로우갯수\":" + Convert.ToInt32(ds.Tables[4].Rows[0]["rowcount"].ToString()) + "," +
@@ -178,8 +178,8 @@ namespace SampleAPI
 
                 //A26 생산실적
 
-                data = "[{ \"회사코드\":" + "\"" + textBox1.Text + "\"" + "," + // 코에버 공통 1000? 1051?
-                                "\"프로젝트번호\":" + Convert.ToInt32(textBox2.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
+                data = "[{ \"회사코드\":" + "\"" + txtCompCode.Text + "\"" + "," + // 코에버 공통 1000? 1051?
+                                "\"프로젝트번호\":" + Convert.ToInt32(txtProjNum.Text) + "," + // 프로젝트 번호  담당자 문의 or DB 확인 ( 업체 생성 PMS)
                                 "\"날짜\": " + "\"" + TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Korea Standard Time").ToString("yyyy-MM-dd") + "\"" + "," +
                                 "\"구분코드\":" + "\"" + "A26" + "\"" + "," +  // 공통 코드 문서 참고 ( A10 : 수주 등등)
                                 "\"로우갯수\":" + Convert.ToInt32(ds.Tables[6].Rows[0]["rowcount"].ToString()) + "," +
@@ -194,7 +194,12 @@ namespace SampleAPI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("방찬석 불러와 : " + ex.Message);
+                if (err.lasterr == "")
+                {
+                    err = new MessageForm("방찬석 불러와!!! :" + ex.Message);
+                    err.ShowDialog();
+                }
+               
             }
         }
 
@@ -215,9 +220,9 @@ namespace SampleAPI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            textBox1.Enabled = true;
-            textBox2.Enabled = true;
-            button1.Enabled = true;
+            txtCompCode.Enabled = true;
+            txtProjNum.Enabled = true;
+            btnStart.Enabled = true;
             timer1.Stop();
         }
 
