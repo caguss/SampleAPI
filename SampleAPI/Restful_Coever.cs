@@ -39,7 +39,7 @@ namespace SampleAPI
         {
             try
             {
-                string strConn = "Server=m.coever.co.kr;Database=coever_mes_hwt;Uid=dbmes;Pwd=dbmes1!;"; //"Server=112.186.117.140;Database=coever_mes_hwt;Uid=dbmes;Pwd=dbmes1!;";
+                string strConn = "";
 
                 using (MySqlConnection conn = new MySqlConnection(strConn))
                 {
