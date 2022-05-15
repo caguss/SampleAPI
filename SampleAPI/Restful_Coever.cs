@@ -54,7 +54,7 @@ namespace SampleAPI
 
             try
             {
-                string url = "http://db2.coever.co.kr:21125/CompanyUseage";
+                string url = "";
                 var httpContent = new System.Net.Http.StringContent("");
                 HttpClient client = new System.Net.Http.HttpClient
                 {
